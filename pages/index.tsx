@@ -4,12 +4,7 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import { useEffect, useState } from 'react';
 import SpotifyWebApi from 'spotify-web-api-js';
-import axios from 'axios';
 import Footer from '../components/elements/Footer';
-
-const clientId = '04656ddbf2be476cbd3de1abb8925381'; // Your client id
-const client_secret = '19f249938bd140ea8a47fcd98134315a'; // Your secret
-const redirect_uri = 'http://localhost:3000/'; // Your redirect uri
 
 const Home: NextPage = () => {
 
@@ -56,7 +51,6 @@ export const getCodeFromUrl = ()=> {
     .substring(1)
     .split('&')
     .reduce ((initial: any, item) =>{
-      // #accessToken=mysecretkev&name=somerandomname
       let parts = item.split("=");
       initial[parts[0]] = decodeURIComponent(parts[1])
       return initial
