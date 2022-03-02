@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import SpotifyWebApi from 'spotify-web-api-js';
 import PlaylistDisplay from '../components/elements/PlaylistDisplay';
 import Track from '../components/elements/Track';
+import axios from 'axios';
 
 const spotify = new SpotifyWebApi();
 
@@ -11,6 +12,7 @@ const User: NextPage = () => {
     const [user, setUser] = useState("");
     const [userImage, setUserImage] = useState("");
     const [playlists, setPlaylists] = useState([]);
+    const [data, setData] = useState({});
 
     useEffect(() => {
         const accessToken = getCodeFromUrl().access_token;
@@ -37,6 +39,24 @@ const User: NextPage = () => {
                 })
                 setPlaylists(playlists);
             })
+
+            var limit = 50;
+
+            fetch(`https://api.spotify.com/v1/me/top/tracks?limit=${limit}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + accessToken
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                setData(data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
         }
     }, [])
 
@@ -70,10 +90,4 @@ export const getCodeFromUrl = () => {
             initial[parts[0]] = decodeURIComponent(parts[1])
             return initial
         }, {});
-}
-
-function getTopItems() {
-    spotify.getMyTopTracks().then((res) => {
-        console.log(res.items);
-    })
 }

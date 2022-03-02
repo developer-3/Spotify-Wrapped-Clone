@@ -5,10 +5,13 @@ import styles from '../styles/Home.module.css'
 import { useEffect, useState } from 'react';
 import SpotifyWebApi from 'spotify-web-api-js';
 import Footer from '../components/elements/Footer';
+import spotifyIcon from "../images/spotify-icon.png"
 
 const Home: NextPage = () => {
 
   const spotify = new SpotifyWebApi();
+
+  
 
   const [user, setUser] = useState("");
 
@@ -29,11 +32,12 @@ const Home: NextPage = () => {
     <div className="flex flex-col gap-10 justify-center items-center bg-green-100 min-h-screen">
       <div className="text-center">
         <h1 className="text-5xl font-bold mb-2">
-          Your Music Taste Sucks
+          How Indie Are You Really?
         </h1>
-        <p>You're not as cool as you think you are, I promise.</p>
+        <p>Tame Impala can't save you now, bud</p>
       </div>
-      <button className="rounded-full bg-green-400 p-4" onClick={login}>
+      <button className="rounded-full bg-green-400 p-4 flex gap-2 justify-center items-center" onClick={login}>
+        <img src={spotifyIcon.src} width={30} height={30} />
         <p className="font-bold">Connect to Spotify</p>
       </button>
     </div>
